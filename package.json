@@ -1,0 +1,5 @@
+{
+  "dependencies": {
+    "@randy.tarampi/lwip": "^3.0.3"
+  }
+}
