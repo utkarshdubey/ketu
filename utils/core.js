@@ -112,7 +112,7 @@ const findNextSection = () => {
         for (let j = 0; j < 8; j++) {
             if (j % 3 == 0) {
                 pix = CLONE.getPixel(INDEX % WIDTH, Math.floor(INDEX / WIDTH));
-                INDEXX++;
+                INDEX++;
             }
             b = uB(b, pix, j);
         }
@@ -172,7 +172,7 @@ const encryptSection = (buffer) => {
 
                 pix = CLONE.getPixel(INDEX % WIDTH, Math.floor(INDEX / WIDTH));
             }
-            if (octect & (1 << (7 - k))) {
+            if (octet & (1 << (7 - k))) {
                 bit = 1;
             } else {
                 bit = 0;
@@ -192,96 +192,78 @@ const encryptSection = (buffer) => {
     }
 }
 
-/* 
-========================DECRYPT Function====================================
-
-*/
-
-/**
- * @param  {} image
- * @param  {} outputFolder
- * @param  {} password
- */
-
-const decrypt = async (image, outputFolder, password) => {
-    try {
-        PASSWORD = password || null;
-        const result = await imgLibOpen(image);
-        WIDTH = result.width();
-        HEIGHT = result.height();
-        CLONE = result;
-
-        let buffer = findNextSection();
-        let fileName = buffer.toString();
-        buffer = findNextSection();
-        const encryptShasum = findNextSection();
-        const bufferShasum = crypto.createHash("sha256");
-        bufferShasum.update(buffer);
-        let output = outputFolder ? outputFolder : ".";
-
-        if (encryptShasum.equals(bufferShasum.digest())) {
-            await writePromise(output + "/ketu-" + fileName, buffer);
-            return {
-                result: true,
-                file: fileName
-            };
-        } else {}
-    } catch (e) {
-        return {
-            result: false
-        };
-    }
-};
-
-/* 
-========================ENCRYPT Function====================================
-
-*/
-/**
- * @param  {} image
- * @param  {} file
- * @param  {} outputFile
- * @param  {} password
- */
-
- const encrypt = async (image, file, outputFile, password) => {
-    try {
-        PASSWORD = password || null;
-        const fileName = new Buffer.from(file.match(/([^/]*)$/)[1]);
-        const data = await readPromise(file);
-        const shasum = crypto.createHash("sha256");
-        shasum.update(data);
-
-        const output = await imgLibOpen(image);
-        const clonePromise = promisify(output.clone.bind(output));
-        const clone = await clonePromise();
-
-        CLONE = clone;
-        WIDTH = clone.width();
-        HEIGHT = clone.height();
-        BATCH = clone.batch();
-        encryptSection(fileName);
-        encryptSection(data);
-        encryptSection(shasum.digest());
-
-        outputFile = outputFile ? outputFile : "ketu-output";
-        return new Promise((resolve, reject) => {
-            BATCH.writeFile(outputFile + ".png", (err) => {
-                if (err) {
-                    reject({
-                        result: false,
-                        err: err
+module.exports = {
+    encrypt: async (image, file, outputFile, password) => {
+        try {
+            PASSWORD = password || null;
+            const fileName = new Buffer.from(file.match(/([^/]*)$/)[1]);
+            const data = await readPromise(file);
+            const shasum = crypto.createHash("sha256");
+            shasum.update(data);
+    
+            const output = await imgLibOpen(image);
+            const clonePromise = promisify(output.clone.bind(output));
+            const clone = await clonePromise();
+    
+            CLONE = clone;
+            WIDTH = clone.width();
+            HEIGHT = clone.height();
+            BATCH = clone.batch();
+            encryptSection(fileName);
+            encryptSection(data);
+            encryptSection(shasum.digest());
+    
+            outputFile = outputFile ? outputFile : "ketu-output";
+            return new Promise((resolve, reject) => {
+                BATCH.writeFile(outputFile + ".png", (err) => {
+                    if (err) {
+                        reject({
+                            result: false,
+                            err: err
+                        });
+                    }
+    
+                    resolve({
+                        result: true
                     });
-                }
-
-                resolve({
-                    result: true
                 });
             });
-        });
-    } catch (e) {
-        return {
-            result: false,
-        };
+        } catch (e) {
+            return {
+                result: false,
+                error: e
+            };
+        }
+    },
+
+    decrypt: async (image, outputFolder, password) => {
+        try {
+            PASSWORD = password || null;
+            const result = await imgLibOpen(image);
+            WIDTH = result.width();
+            HEIGHT = result.height();
+            CLONE = result;
+    
+            let buffer = findNextSection();
+            let fileName = buffer.toString();
+            buffer = findNextSection();
+            const encryptShasum = findNextSection();
+            const bufferShasum = crypto.createHash("sha256");
+            bufferShasum.update(buffer);
+            let output = outputFolder ? outputFolder : ".";
+    
+            if (encryptShasum.equals(bufferShasum.digest())) {
+                await writePromise(output + "/ketu-" + fileName, buffer);
+                return {
+                    result: true,
+                    file: fileName
+                };
+            } else {}
+        } catch (e) {
+            return {
+                result: false,
+                error: e
+            };
+        }
     }
-};
+}
