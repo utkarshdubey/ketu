@@ -7,7 +7,7 @@
   "version": "1.0.0",
   "description": "Ketu is an awesome steganography tool built purely on NodeJS.",
   "main": "main.js",
-  "scripts": {
+  "scripts": {  
     "start": "electron .",
     "uilib-start": "yarn watch:css && NODE_ENV=development webpack-dev-server",
     "build": "NODE_ENV=production && rm -rf dist && yarn build:css && webpack --config ./webpack.config.js",
