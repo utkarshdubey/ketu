@@ -9,7 +9,7 @@ function createWindow() {
         }
     })
 
-    win.loadFile('ok.html')
+    win.loadFile('index.html')
 }
 
 
