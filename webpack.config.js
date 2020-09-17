@@ -72,7 +72,7 @@ function getCfg(isLegacy) {
         contentLoaderOptions,
       ],
     },
-    entry: `${__dirname}/frontend/src/App.js`,
+    entry: `${__dirname}/frontend/src/index.js`,
     output: {
       environment: getEnvObject(isLegacy),
       path: `${__dirname}/dist/`,

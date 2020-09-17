@@ -1,4 +1,4 @@
-import { render, useState, useCallback } from "@hydrophobefireman/ui-lib";
+import { useState, useCallback } from "@hydrophobefireman/ui-lib";
 import "./App.css";
 
 function Clicker() {
@@ -7,13 +7,13 @@ function Clicker() {
   return (
     <>
       <div>Some UI Lib reactive component</div>
-      <button onClick={increment}>Clicked {clicks} time(s)</button>
+      <button class="btn btn-blue bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" onClick={increment}>Clicked {clicks} time(s)</button>
     </>
   );
 }
 
-function App() {
+export function App() {
   return <main>{<Clicker />}</main>;
 }
 
-render(<App />, document.getElementById("app-mount"));
+
