@@ -10,7 +10,7 @@
   "scripts": {  
     "start": "electron .",
     "uilib-start": "yarn watch:css && NODE_ENV=development webpack-dev-server",
-    "build": "NODE_ENV=production && rm -rf dist && yarn build:css && webpack --config ./webpack.config.js",
+    "build": "yarn build:css && NODE_ENV=production webpack --config ./webpack.config.js",
     "prebuild": "rm -rf ./dist/",
     "build:css": "postcss frontend/src/assets/tailwind.css -o frontend/src/assets/main.css",
     "watch:css": "postcss frontend/src/assets/tailwind.css -o frontend/src/assets/main.css"
