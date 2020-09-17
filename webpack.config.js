@@ -2,10 +2,8 @@ const TerserWebpackPlugin = require("terser-webpack-plugin");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const autoPrefixPlugin = require("autoprefixer");
-const WebpackModuleNoModulePlugin = require("webpack-module-nomodule-plugin");
 const OptimizeCSSAssetsPlugin = require("optimize-css-assets-webpack-plugin");
 const cfg = require("./.babelrc");
-
 
 const mode = process.env.NODE_ENV;
 
@@ -62,7 +60,7 @@ function getCfg(isLegacy) {
       },
     },
     devServer: {
-      contentBase: `${__dirname}/docs`,
+      contentBase: `${__dirname}/dist`,
       compress: !0,
       port: 4200,
       historyApiFallback: true,
@@ -74,10 +72,10 @@ function getCfg(isLegacy) {
         contentLoaderOptions,
       ],
     },
-    entry: `${__dirname}/src/App.js`,
+    entry: `${__dirname}/frontend/src/App.js`,
     output: {
       environment: getEnvObject(isLegacy),
-      path: `${__dirname}/docs/`,
+      path: `${__dirname}/dist/`,
       filename: `${isLegacy ? "legacy" : "es6"}/[name]-[contenthash].js`,
     },
     mode,
@@ -103,14 +101,14 @@ function getCfg(isLegacy) {
             htmlWebpackPlugin: {
               tags,
               files,
-              options
+              options,
             },
           };
         },
         inject: "body",
-        template: `${__dirname}/index.html`,
+        template: `${__dirname}/frontend/index.html`,
         xhtml: !0,
-        favicon: "./favicon.ico",
+        // favicon: "./favicon.ico",
         minify: prodOrDev(
           {
             collapseBooleanAttributes: !0,
@@ -126,10 +124,8 @@ function getCfg(isLegacy) {
       new MiniCssExtractPlugin({}),
       isProd &&
         new OptimizeCSSAssetsPlugin({ cssProcessor: require("cssnano") }),
-      
-      new WebpackModuleNoModulePlugin(isLegacy ? "legacy" : "modern"),
     ].filter(Boolean),
   };
 }
 
-module.exports = getCfg(false)
+module.exports = getCfg(false);
