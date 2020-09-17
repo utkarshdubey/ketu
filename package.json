@@ -1,5 +1,50 @@
 {
   "dependencies": {
+    "@hydrophobefireman/ui-lib": "^1.4.17",
     "@randy.tarampi/lwip": "^3.0.3"
+  },
+  "name": "ketu",
+  "version": "1.0.0",
+  "description": "Ketu is an awesome steganography tool built purely on NodeJS.",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron .",
+    "uilib-start": "NODE_ENV=development webpack-dev-server ./resources",
+    "build": "NODE_ENV=production webpack --config ./resources/webpack.config.js",
+    "prebuild": "rm -rf ./docs/"
+  },
+  "repository": "git@github.com:utkarshdubey/ketu.git",
+  "author": "Utkarsh Dubey <utkarsh.dubey3jan@gmail.com>",
+  "license": "MIT",
+  "devDependencies": {
+    "@babel/core": "^7.11.6",
+    "@babel/plugin-proposal-class-properties": "^7.10.4",
+    "@babel/plugin-syntax-dynamic-import": "^7.8.3",
+    "@babel/plugin-transform-react-jsx": "^7.10.4",
+    "@babel/plugin-transform-runtime": "^7.11.5",
+    "@babel/preset-env": "^7.11.5",
+    "@babel/preset-modules": "^0.1.4",
+    "@babel/runtime-corejs3": "^7.11.2",
+    "autoprefixer": "^9.8.6",
+    "babel-loader": "^8.1.0",
+    "core-js": "^3.6.5",
+    "css-loader": "^4.3.0",
+    "cssnano": "^4.1.10",
+    "electron": "^10.1.2",
+    "file-loader": "^6.1.0",
+    "html-inline-css-webpack-plugin": "^1.8.1",
+    "html-webpack-plugin": "^4.4.1",
+    "mini-css-extract-plugin": "^0.11.2",
+    "optimize-css-assets-webpack-plugin": "^5.0.4",
+    "postcss-cli": "^7.1.2",
+    "postcss-loader": "^4.0.1",
+    "style-ext-html-webpack-plugin": "^4.1.2",
+    "terser": "^5.3.1",
+    "terser-webpack-plugin": "^4.2.0",
+    "url-loader": "^4.1.0",
+    "webpack": "^5.0.0-beta.30",
+    "webpack-cli": "^3.3.12",
+    "webpack-dev-server": "^3.11.0",
+    "webpack-module-nomodule-plugin": "0.4.0"
   }
 }
