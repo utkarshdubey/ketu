@@ -6,12 +6,15 @@
   "name": "ketu",
   "version": "1.0.0",
   "description": "Ketu is an awesome steganography tool built purely on NodeJS.",
-  "main": "main.js",
-  "scripts": {  
+  "main": "application/electron-starter.js",
+  "homepage": "./",
+  "scripts": {
     "start": "electron .",
+    "electron-dev": "ELECTRON_START_URL=http://localhost:4200 electron .",
+    "electron-build": "yarn build",
     "uilib-start": "yarn watch:css && NODE_ENV=development webpack-dev-server",
-    "build": "yarn build:css && NODE_ENV=production webpack --config ./webpack.config.js",
-    "prebuild": "rm -rf ./dist/",
+    "frontend-build": "yarn frontend-prebuild && yarn build:css && NODE_ENV=production webpack --config ./webpack.config.js",
+    "frontend-prebuild": "rm -rf ./dist/",
     "build:css": "postcss frontend/src/assets/tailwind.css -o frontend/src/assets/main.css",
     "watch:css": "postcss frontend/src/assets/tailwind.css -o frontend/src/assets/main.css"
   },
@@ -33,6 +36,7 @@
     "css-loader": "^4.3.0",
     "cssnano": "^4.1.10",
     "electron": "^10.1.2",
+    "electron-builder": "^22.8.1",
     "file-loader": "^6.1.0",
     "html-inline-css-webpack-plugin": "^1.8.1",
     "html-webpack-plugin": "^4.4.1",
