@@ -22,7 +22,7 @@ module.exports = {
             modules: false,
             loose: true,
             corejs: 3,
-            targets: ["last 2 versions", "not IE 11"],
+            targets: ["last 2 versions", "not IE 11", "electron"],
             useBuiltIns: "usage",
           },
         ],
