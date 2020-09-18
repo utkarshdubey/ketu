@@ -20,13 +20,13 @@
 	-webkit-background-clip: text;
 	-webkit-text-fill-color: transparent;
   -webkit-animation: hue 10s infinite linear;
-  
   user-select: none;
 }
 
 .subtitle {
   font-size: 40px;
   font-weight: 600;
+  margin-top: -2rem;
 }
 
 /* Keyframes */
@@ -36,6 +36,6 @@
     -webkit-filter: hue-rotate(0deg);
   }
   to {
-    -webkit-filter: hue-rotate(-30deg);
+    -webkit-filter: hue-rotate(-60deg);
   }
 }
