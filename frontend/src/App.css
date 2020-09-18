@@ -4,3 +4,27 @@
 * {
   font-family: 'Public Sans', sans-serif;
 }
+
+.logo {
+  font-size: 144px;
+  font-weight: 800;
+  text-align: center;
+  color: #9F7AEA;
+  background-image: -webkit-linear-gradient(92deg, #9F7AEA, #805AD5);
+  background-clip: text;
+  animation: hue 10s infinite linear;
+	-webkit-background-clip: text;
+	-webkit-text-fill-color: transparent;
+  -webkit-animation: hue 10s infinite linear;
+  
+  user-select: none;
+}
+
+@keyframes hue {
+  from {
+    -webkit-filter: hue-rotate(0deg);
+  }
+  to {
+    -webkit-filter: hue-rotate(-30deg);
+  }
+}

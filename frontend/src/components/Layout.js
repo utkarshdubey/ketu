@@ -4,7 +4,7 @@ export default function Layout(props) {
     }
     return(
         <>
-            <div class="container mx-auto bg-purple-200">
+            <div class="container mx-auto">
                 {props.children}
             </div>
         </>
