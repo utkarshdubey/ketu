@@ -12,8 +12,8 @@
     "start": "electron .",
     "electron-dev": "ELECTRON_START_URL=http://localhost:4200 electron .",
     "electron-build": "yarn build",
-    "uilib-start": "yarn watch:css && NODE_ENV=development webpack-dev-server",
-    "frontend-build": "yarn frontend-prebuild && yarn build:css && NODE_ENV=production webpack --config ./webpack.config.js",
+    "frontend-start": "yarn watch:css && NODE_ENV=development webpack-dev-server",
+    "frontend-build": "yarn frontend-prebuild && NODE_ENV=production yarn build:css && NODE_ENV=production webpack --config ./webpack.config.js",
     "frontend-prebuild": "rm -rf ./dist/",
     "build:css": "postcss frontend/src/assets/tailwind.css -o frontend/src/assets/main.css",
     "watch:css": "postcss frontend/src/assets/tailwind.css -o frontend/src/assets/main.css"
