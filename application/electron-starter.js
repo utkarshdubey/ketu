@@ -14,8 +14,9 @@ let mainWindow;
 function createWindow() {
     // Create the browser window.
     mainWindow = new BrowserWindow({
-        width: 945,
-        height: 645
+        width: 800,
+        height: 645,
+        resizable: false
     });
 
     const startURL = process.env.ELECTRON_START_URL || url.format({
