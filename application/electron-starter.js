@@ -16,7 +16,8 @@ function createWindow() {
     mainWindow = new BrowserWindow({
         width: 800,
         height: 645,
-        resizable: false
+        resizable: false,
+        webPreferences: { nodeIntegration: true, preload: __dirname + '/preload.js' }
     });
 
     const startURL = process.env.ELECTRON_START_URL || url.format({
