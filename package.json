@@ -5,7 +5,7 @@
   },
   "name": "ketu",
   "version": "1.0.0",
-  "description": "Ketu is an awesome steganography tool built purely on NodeJS.",
+  "description": "Ketu is an awesome image steganography tool built purely on NodeJS.",
   "main": "application/electron-starter.js",
   "homepage": "./",
   "scripts": {
