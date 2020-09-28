@@ -917,10 +917,10 @@
     postcss "7.0.32"
     purgecss "^2.3.0"
 
-"@hydrophobefireman/ui-lib@^1.4.17":
-  version "1.4.17"
-  resolved "https://registry.yarnpkg.com/@hydrophobefireman/ui-lib/-/ui-lib-1.4.17.tgz#cca9c1f6aa91a71b7bf83e44dad129d91378f21f"
-  integrity sha512-x390r/2bqOWKcnQpBItLFktMSUpFHLjCgkf6IrJCcBVwCeZ5HnV4OHiXQzZzR+4u6y4KewvXoFBU+nM/pomX1g==
+"@hydrophobefireman/ui-lib@^1.5.3":
+  version "1.5.3"
+  resolved "https://registry.yarnpkg.com/@hydrophobefireman/ui-lib/-/ui-lib-1.5.3.tgz#096d3f30ba133f24c7d4e168c61adce771b713e2"
+  integrity sha512-5fNJQcNDA2mzVWNRIXctxLK48h/AU63tYysZcwBP04KPnLE+N9sfJTdz2/Vpsw9b0Okwj3LxDdLsFzeug3MhqA==
 
 "@nodelib/fs.scandir@2.1.3":
   version "2.1.3"

@@ -7,7 +7,7 @@ import { Home, HidePage, DecryptPage, NotFound } from './pages/exports';
 export function App() {
   return (
     <>
-      <Router fallbackComponent={NotFound}>
+      <Router defaultRoute="/" fallbackComponent={NotFound} inMemoryRouter={true}>
           <Path match="/" component={Home} />
           <Path match="/hide" component={HidePage} />
           <Path match="/decrypt" component={DecryptPage} />

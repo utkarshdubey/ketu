@@ -1,6 +1,6 @@
 {
   "dependencies": {
-    "@hydrophobefireman/ui-lib": "^1.4.17",
+    "@hydrophobefireman/ui-lib": "^1.5.3",
     "@randy.tarampi/lwip": "^3.0.3"
   },
   "name": "ketu",
@@ -10,12 +10,13 @@
   "homepage": "./",
   "scripts": {
     "start": "electron .",
-    "electron-dev": "ELECTRON_START_URL=http://localhost:4200 electron .",
+    "electron-dev": "set ELECTRON_START_URL=http://localhost:4200&&electron .",
     "electron-build": "yarn build",
-    "frontend-start": "yarn watch:css && NODE_ENV=development webpack-dev-server",
-    "frontend-build": "yarn frontend-prebuild && NODE_ENV=production yarn build:css && NODE_ENV=production webpack --config ./webpack.config.js",
+    "frontend-start": "yarn watch:css && set NODE_ENV=development&&webpack-dev-server",
+    "frontend-build": "yarn frontend-prebuild && yarn build:css && yarn build:bundle",
     "frontend-prebuild": "rm -rf ./dist/",
-    "build:css": "postcss frontend/src/assets/tailwind.css -o frontend/src/assets/main.css",
+    "build:bundle": "set NODE_ENV=production&&webpack --config ./webpack.config.js",
+    "build:css": "set NODE_ENV=production&&postcss frontend/src/assets/tailwind.css -o frontend/src/assets/main.css",
     "watch:css": "postcss frontend/src/assets/tailwind.css -o frontend/src/assets/main.css"
   },
   "repository": "git@github.com:utkarshdubey/ketu.git",

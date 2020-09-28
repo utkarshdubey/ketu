@@ -1,7 +1,10 @@
-import { render, redirect } from "@hydrophobefireman/ui-lib";
+import { render, redirect, config } from "@hydrophobefireman/ui-lib";
 import { App } from "./App";
 import "./assets/main.css";
 
+// Electron Fix
+// config.inMemoryRouter = true;
+// redirect('/');
+
 // DOM Insertion
-redirect('/');
 render(<App />, document.getElementById("app-mount"));
