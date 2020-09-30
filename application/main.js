@@ -7,6 +7,9 @@ const BrowserWindow = electron.BrowserWindow;
 const path = require('path');
 const url = require('url');
 
+const ipcMain = electron.ipcMain;
+const dialog = electron.dialog;
+
 // Keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the JavaScript object is garbage collected.
 let mainWindow;
@@ -30,7 +33,7 @@ function createWindow() {
     mainWindow.loadURL(startURL);
 
     // Open the DevTools.
-    mainWindow.webContents.openDevTools();
+    // mainWindow.webContents.openDevTools();
 
     // Emitted when the window is closed.
     mainWindow.on('closed', function () {
@@ -65,3 +68,30 @@ app.on('activate', function () {
 
 // In this file you can include the rest of your app's specific main process
 // code. You can also put them in separate files and require them here.
+
+// Util Functions
+function nextEvent(obj, event) {
+    return new Promise((r) => obj.once(event, (...a) => r(a)));
+}
+
+// IPC Processes
+
+let files = {};
+
+ipcMain.handle("hideFile", async (e, o) => {
+    const { canceled, filePaths } = await dialog.showOpenDialog(mainWindow, {
+        properties: ["openFile"],
+        filters: [{ name: "Images", extensions: ["jpg", "png", "gif"] }],
+    });
+    let results = {};
+    if (canceled) {
+        results.error = true;
+        return results;
+    } else {
+        files.parentFile = filePaths;
+        results.fileName = path.basename(filePaths[0]);
+        console.log(files);
+        return results;
+    }
+   
+  });

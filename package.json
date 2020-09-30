@@ -1,16 +1,17 @@
 {
   "dependencies": {
     "@hydrophobefireman/ui-lib": "^1.5.3",
-    "@randy.tarampi/lwip": "^3.0.3"
+    "@randy.tarampi/lwip": "^3.0.3",
+    "statedrive": "^0.0.7"
   },
   "name": "ketu",
   "version": "1.0.0",
   "description": "Ketu is an awesome image steganography tool built purely on NodeJS.",
-  "main": "application/electron-starter.js",
+  "main": "application/main.js",
   "homepage": "./",
   "scripts": {
     "start": "electron .",
-    "electron-dev": "set ELECTRON_START_URL=http://localhost:4200&&electron .",
+    "electron-dev": "set ELECTRON_START_URL=http://localhost:4200&&nodemon --watch application/ --exec electron .",
     "electron-build": "yarn build",
     "frontend-start": "yarn watch:css && set NODE_ENV=development&&webpack-dev-server",
     "frontend-build": "yarn frontend-prebuild && yarn build:css && yarn build:bundle",
@@ -42,6 +43,7 @@
     "html-inline-css-webpack-plugin": "^1.8.1",
     "html-webpack-plugin": "^4.4.1",
     "mini-css-extract-plugin": "^0.11.2",
+    "nodemon": "^2.0.4",
     "optimize-css-assets-webpack-plugin": "^5.0.4",
     "postcss-cli": "7.1.2",
     "postcss-loader": "^4.0.1",

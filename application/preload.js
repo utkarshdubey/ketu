@@ -1,1 +1,1 @@
-window.dialog = require('electron').dialog;
+window.electron = window.require('electron');
