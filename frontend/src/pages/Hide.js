@@ -10,7 +10,7 @@ function openFileDialog() {
     window.electron.ipcRenderer.invoke('hideFile').then(res => {
         // console.log(res);
         if(!res.error) {
-            set(parentFileHidden, res.fileName);
+            set(parentFileHidden, {uploaded: true, fileName: res.fileName});
         }
     });
 }
@@ -21,12 +21,12 @@ export function HidePage() {
         <>
         <Layout title="Ketu">
             <Logo />
-            <Subtitle text="Upload the file you want to hide."/>
-            <div class="my-4">
+            <Subtitle text="Select the file you want to hide."/>
+            <div class="my-5">
                 <UploadButton onClick={openFileDialog} />
             </div>
-            <span>{filename}</span>
-            <div class="py-8">
+            <span>{filename.fileName}</span>
+            <div class="my-2">
                 <Footer>
                     * Should not be large if your image is not big enough.
                 </Footer>

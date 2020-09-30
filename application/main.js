@@ -32,6 +32,10 @@ function createWindow() {
     // and load the index.html of the app.
     mainWindow.loadURL(startURL);
 
+    // hide the menu
+    mainWindow.setMenu(null);
+
+
     // Open the DevTools.
     // mainWindow.webContents.openDevTools();
 
@@ -88,7 +92,7 @@ ipcMain.handle("hideFile", async (e, o) => {
         results.error = true;
         return results;
     } else {
-        files.parentFile = filePaths;
+        files.parentFile = filePaths[0];
         results.fileName = path.basename(filePaths[0]);
         console.log(files);
         return results;
