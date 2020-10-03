@@ -24,6 +24,8 @@
 }
 
 .subtitle {
+  text-align: center;
+  word-break: break-word;
   font-size: 40px;
   font-weight: 600;
   margin-top: -2rem;

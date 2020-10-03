@@ -10,6 +10,8 @@ const url = require('url');
 const ipcMain = electron.ipcMain;
 const dialog = electron.dialog;
 
+const steg = require('../utils/core');
+
 // Keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the JavaScript object is garbage collected.
 let mainWindow;
@@ -33,7 +35,7 @@ function createWindow() {
     mainWindow.loadURL(startURL);
 
     // hide the menu
-    mainWindow.setMenu(null);
+    // mainWindow.setMenu(null);
 
 
     // Open the DevTools.
@@ -73,16 +75,13 @@ app.on('activate', function () {
 // In this file you can include the rest of your app's specific main process
 // code. You can also put them in separate files and require them here.
 
-// Util Functions
-function nextEvent(obj, event) {
-    return new Promise((r) => obj.once(event, (...a) => r(a)));
-}
+
 
 // IPC Processes
 
 let files = {};
 
-ipcMain.handle("hideFile", async (e, o) => {
+ipcMain.handle("hideParentFile", async (e, o) => {
     const { canceled, filePaths } = await dialog.showOpenDialog(mainWindow, {
         properties: ["openFile"],
         filters: [{ name: "Images", extensions: ["jpg", "png", "gif"] }],
@@ -97,5 +96,36 @@ ipcMain.handle("hideFile", async (e, o) => {
         console.log(files);
         return results;
     }
-   
-  });
+});
+
+ipcMain.handle("hideChildFile", async (e, o) => {
+    const { canceled, filePaths } = await dialog.showOpenDialog(mainWindow, {
+        properties: ["openFile"],
+    });
+    let results = {};
+    if (canceled) {
+        results.error = true;
+        return results;
+    } else {
+        files.childFile = filePaths[0];
+        results.fileName = path.basename(filePaths[0]);
+        console.log(files);
+        return results;
+    }
+});
+
+ipcMain.handle("saveHiddenFile", async (e, o) => {
+    const { canceled, filePath } = await dialog.showSaveDialog(mainWindow, {
+        buttonLabel: "Save your secret file",
+        filters: [{ name: "Images" }]
+    });
+    let results = {};
+    if(canceled) {
+        results.error = true;
+        return results;
+    } else {
+        const res = await steg.encrypt(files.parentFile, files.childFile, filePath, o.password);
+        results.successfull = res.result;
+        return results;
+    }
+});
