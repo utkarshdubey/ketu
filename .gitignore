@@ -2,3 +2,5 @@ node_modules/
 experiments/
 dist/
 
+yarn.lock
+yarn-error.log
