@@ -9,6 +9,7 @@ import { parentFileHidden, childFileHidden, stepHidden } from '../state/atoms';
 function clearCache() {
     set(parentFileHidden, {uploaded: false, fileName: null});
     set(childFileHidden, {uploaded: false, fileName: null});
+    window.electron.ipcRenderer.send('clearHideCache');
 }
 
 function openParentFileDialog() {

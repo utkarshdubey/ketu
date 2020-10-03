@@ -81,6 +81,8 @@ app.on('activate', function () {
 
 let files = {};
 
+let decrypted_files = {};
+
 ipcMain.handle("hideParentFile", async (e, o) => {
     const { canceled, filePaths } = await dialog.showOpenDialog(mainWindow, {
         properties: ["openFile"],
@@ -129,3 +131,53 @@ ipcMain.handle("saveHiddenFile", async (e, o) => {
         return results;
     }
 });
+
+ipcMain.handle("selectParentFileForDecrypting", async (e, o) => {
+    const { canceled, filePaths } = await dialog.showOpenDialog(mainWindow, {
+        properties: ["openFile"],
+        filters: [{ name: "Images", extensions: ["jpg", "png", "gif"] }],
+    });
+    let results = {};
+    if (canceled) {
+        results.error = true;
+        return results;
+    } else {
+        decrypted_files.parentFile = filePaths[0];
+        results.fileName = path.basename(filePaths[0]);
+        console.log(decrypted_files);
+        return results;
+    } 
+})
+
+ipcMain.handle("decryptHiddenFile", async (e, o) => {
+    const { canceled, filePaths } = await dialog.showOpenDialog(mainWindow, {
+        properties: ["openDirectory"],
+    });
+    let results = {};
+    if (canceled) {
+        results.error = true;
+        return results;
+    } else {
+        const directoryToSave = filePaths[0];
+
+        console.log(decrypted_files.parentFile + " " + directoryToSave + " " + o.password);
+
+        const res = await steg.decrypt(decrypted_files.parentFile, directoryToSave, o.password);
+        if(res === undefined) {
+            results.successfull = false;
+            return results;
+        } else {
+            results.successfull = res.result;
+            results.childFile = res.file;
+            return results;
+        }
+    }  
+});
+
+ipcMain.on("clearHideCache", async (e, o) => {
+    files = {};
+});
+
+ipcMain.on("clearDecryptCache", async(e, o) => {
+    decrypted_files = {};
+})

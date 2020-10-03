@@ -5,6 +5,8 @@ const {
 } = require('util');
 const imgLib = require('@randy.tarampi/lwip');
 
+const path = require('path');
+
 const imgLibOpen = promisify(imgLib.open);
 const writePromise = promisify(fs.writeFile);
 const readPromise = promisify(fs.readFile);
@@ -253,10 +255,10 @@ module.exports = {
             let output = outputFolder ? outputFolder : ".";
     
             if (encryptShasum.equals(bufferShasum.digest())) {
-                await writePromise(output + "/ketu-" + fileName, buffer);
+                await writePromise(output + "/ketu-" + path.basename(fileName), buffer);
                 return {
                     result: true,
-                    file: fileName
+                    file: path.basename(fileName)
                 };
             } else {}
         } catch (e) {
