@@ -160,8 +160,6 @@ ipcMain.handle("decryptHiddenFile", async (e, o) => {
     } else {
         const directoryToSave = filePaths[0];
 
-        console.log(decrypted_files.parentFile + " " + directoryToSave + " " + o.password);
-
         const res = await steg.decrypt(decrypted_files.parentFile, directoryToSave, o.password);
         if(res === undefined) {
             results.successfull = false;
